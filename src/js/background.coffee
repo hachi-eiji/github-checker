@@ -25,15 +25,18 @@ notify = (data, callback)->
 
   chrome.notifications.clear 'github-checker', ()->
 
-  chrome.notifications.create 'github-checker', {
-    type: "list",
-    title: "Github Checker Notification",
-    message: "You got new issues!",
-    iconUrl: "images/icon48.png",
-    items: items,
-    isClickable: true
-  }, (notificationId)->
-    callback?()
+  if items.length 
+    chrome.notifications.create 'github-checker', {
+      type: "list",
+      title: "Github Checker Notification",
+      message: "You got new issues!",
+      iconUrl: "images/icon48.png",
+      items: items,
+      isClickable: true
+    }, (notificationId)->
+      callback?()
+  else 
+      callback?()
 
 syncIssues = (data)->
   filterType = localStorage.defaultFilter || 'assigned'
